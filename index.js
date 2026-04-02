@@ -173,7 +173,7 @@ client.on('interactionCreate', async interaction => {
 
       // Handle "unlock only" edge case
       if (startIndex === endIndex && wasCurrentBenderLocked) {
-        const upgradeCostLine = `The total shards required to go from **${currentVisual}** to **${desiredVisual}** is: **10** (+10 for unlock fee)`;
+        const upgradeCostLine = `The total shards required to go from **${currentVisual}** to **${desiredVisual}** is: **10** (including +10 for unlock fee)`;
         const spentSoFarLine = `You have spent **0** on your Character so Far`;
         return interaction.update({
           content: `${upgradeCostLine}\n${spentSoFarLine}`,
@@ -200,7 +200,7 @@ client.on('interactionCreate', async interaction => {
       }
 
       // --- Final Message ---
-      const upgradeCostLine = `The total shards required to go from **${currentVisual}** to **${desiredVisual}${wasCurrentBenderLocked ? '🔓' : ''}** is: **${totalShards}** ${wasCurrentBenderLocked ? '(+10 for unlock fee)' : ''}`;
+      const upgradeCostLine = `The total shards required to go from **${currentVisual}** to **${desiredVisual}${wasCurrentBenderLocked ? '🔓' : ''}** is: **${totalShards}** ${wasCurrentBenderLocked ? '(including +10 for unlock fee)' : ''}`;
       const spentSoFarLine = `You have spent **${numberOfShardsSpent}** on your Character so Far`;
 
       await interaction.update({
