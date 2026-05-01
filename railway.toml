@@ -1,2 +1,4 @@
 [build]
-  installCommand = "npm install --omit=dev"
+  builder = "railpack"
+[build.env]
+  RAILPACK_INSTALL_CMD = "npm install --omit=dev"
