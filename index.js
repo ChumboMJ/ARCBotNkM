@@ -89,17 +89,17 @@ const buildComponents = (state = {}) => {
   };
   
   // --- COMPONENT DEFINITIONS ---
-  const starsForCurrentMenu = uniqueStars.filter(s => s !== '6');
-  const currentStarMenu = new StringSelectMenuBuilder().setCustomId('currentStar').setPlaceholder(currentStarPlaceholder).setDisabled(false).addOptions(starsForCurrentMenu.map(s => ({ label: getStarLabel(s), value: s })));
-  const currentGradeMenu = new StringSelectMenuBuilder().setCustomId(currentGradeId).setPlaceholder(currentGradePlaceholder).setDisabled(!currentStar).addOptions(currentStar ? getGradeOptions(currentStar, false) : [{ label: '...', value: 'dummy' }]);
+  const starsForCurrentMenu = uniqueStars;
+  const currentStarMenu = new StringSelectmenuBuilder().setCustomId('currentStar').setPlaceholder(currentStarPlaceholder).setDisabled(false).addOptions(starsForCurrentMenu.map(s => ({ label: getStarLabel(s), value: s })));
+  const currentGradeMenu = new StringSelectMenuBuilder().setCustomId(currentGradeId).setPlaceholder(currentGradePlaceholder).setDisabled(!currentStar || currentStar === '6').addOptions(currentStar ? getGradeOptions(currentStar, false) : [{ label: '...', value: 'dummy' }]);
 
   // Filter the stars for the desired dropdown
   const filteredStars = (step >= 2)
     ? uniqueStars.filter(s => parseInt(s, 10) >= parseInt(currentStar, 10))
     : uniqueStars;
 
-  const desiredStarMenu = new StringSelectMenuBuilder().setCustomId(desiredStarId).setPlaceholder(desiredStarPlaceholder).setDisabled(!currentGrade).addOptions(filteredStars.map(s => ({ label: getStarLabel(s), value: s })));
-  const desiredGradeMenu = new StringSelectMenuBuilder().setCustomId(desiredGradeId).setPlaceholder(desiredGradePlaceholder).setDisabled(!desiredStar).addOptions(desiredStar ? getGradeOptions(desiredStar, true, currentStar, currentGrade) : [{ label: '...', value: 'dummy' }]);
+  const desiredStarMenu = new StringSelectMenuBuilder().setCustomId(desiredStarId).setPlaceholder(desiredStarPlaceholder).setDisabled(!currentGrade || currentStar === '6').addOptions(filteredStars.map(s => ({ label: getStarLabel(s), value: s })));
+  const desiredGradeMenu = new StringSelectMenuBuilder().setCustomId(desiredGradeId).setPlaceholder(desiredGradePlaceholder).setDisabled(!desiredStar || desiredStar === '6').addOptions(desiredStar ? getGradeOptions(desiredStar, true, currentStar, currentGrade) : [{ label: '...', value: 'dummy' }]);
   const calculateButton = new ButtonBuilder().setCustomId(calculateId).setLabel('Calculate').setEmoji('🧮').setStyle(step === 4 ? ButtonStyle.Success : ButtonStyle.Primary).setDisabled(step !== 4);
 
   return [
